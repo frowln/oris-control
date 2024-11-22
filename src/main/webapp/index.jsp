@@ -1,21 +1,23 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome</title>
+    <title>Login</title>
 </head>
 <body>
-<h1>Welcome to the Platform</h1>
-<p>Please login to continue or register for a new account.</p>
-<form method="post" action="${pageContext.request.contextPath}/login">
-    <label for="username">Username:</label>
+<h1>Добро пожаловать</h1>
+<p>Войдите или зарегистрируйтесь</p>
+<form method="post" action="/login">
+    <label for="username">Имя:</label>
     <input type="text" id="username" name="username" required>
     <br>
-    <label for="password">Password:</label>
+    <label for="password">Пароль:</label>
     <input type="password" id="password" name="password" required>
     <br>
-    <button type="submit">Login</button>
+    <button type="submit">Войти</button>
 </form>
 <p style="color: red;">${requestScope.errorMessage}</p>
-<p>Don't have an account? <a href="${pageContext.request.contextPath}/register.jsp">Register here</a></p>
+<p>Нет аккаунта? <a href="/registration">Зарегистрируйтесь</a></p>
 </body>
 </html>

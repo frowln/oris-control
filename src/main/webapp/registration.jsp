@@ -1,20 +1,22 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Registration</title>
 </head>
 <body>
-<h2>Register</h2>
-<form method="post" action="/register">
-    <label for="username">Username:</label>
+<h2>Регистрация</h2>
+<form method="post" action="/registration">
+    <label for="username">Имя:</label>
     <input type="text" id="username" name="username" required>
     <br>
-    <label for="password">Password:</label>
+    <label for="password">Пароль:</label>
     <input type="password" id="password" name="password" required>
     <br>
-    <button type="submit">Register</button>
+    <button type="submit">Зарегистрироваться</button>
 </form>
 <p style="color: red;">${error}</p>
-<p>Already have an account? <a href="/login.jsp">Login here</a></p>
+<p>Уже есть аккаунт? <a href="/login">Войдите</a></p>
 </body>
 </html>

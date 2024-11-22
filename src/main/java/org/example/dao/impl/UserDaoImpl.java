@@ -17,6 +17,8 @@ public class UserDaoImpl implements UserDao {
         return INSTANCE;
     }
 
+    private UserDaoImpl() {}
+
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     private static final String SAVE_SQL = """

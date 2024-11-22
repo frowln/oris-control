@@ -5,8 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.entity.User;
-import org.example.service.UserService;
 import org.example.service.impl.UserServiceImpl;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
     @Override
@@ -26,11 +26,15 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
+        Integer userId = userService.findByUsername(username).get().getId();
         if (userService.login(username, password)) {
-            resp.sendRedirect("index.jsp");
+            HttpSession session = req.getSession();
+            session.setAttribute("user_id", userId);
+            session.setAttribute("username", username);
+            resp.sendRedirect("/profile");
         } else {
-            req.setAttribute("errorMessage", "Invalid username or password");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.setAttribute("errorMessage", "Неверное имя пользователя или пароль");
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
         }
     }
 }
