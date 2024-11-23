@@ -22,6 +22,7 @@ public class ProfileServlet extends HttpServlet {
     private static final String API_KEY = "bd5e378503939ddaee76f12ad7a97608";
     private final HttpClient httpClient = new HttpClient();
     private final WeatherService weatherService = WeatherService.getInstance();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
 
     @Override
@@ -33,27 +34,23 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-
         Integer userId = (Integer) session.getAttribute("user_id");
         if (userId == null) {
-            resp.sendRedirect("/login");
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.getWriter().write("{\"error\":\"Unauthorized\"}");
             return;
         }
 
         String city = req.getParameter("city");
-
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("q", city);
         queryParams.put("appid", API_KEY);
         queryParams.put("units", "metric");
         queryParams.put("lang", "ru");
 
-        Map<String, String> headers = new HashMap<>();
-
         try {
-            String response = httpClient.get(API_URL, headers, queryParams);
+            String response = httpClient.get(API_URL, new HashMap<>(), queryParams);
 
-            ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> weatherData = objectMapper.readValue(response, Map.class);
 
             Map<String, Object> main = (Map<String, Object>) weatherData.get("main");
@@ -63,18 +60,20 @@ public class ProfileServlet extends HttpServlet {
             String condition = (String) weather.get("description");
 
             Weather savedWeather = new Weather(0, city, temperature, condition, userId);
-
             weatherService.saveWeather(savedWeather);
 
-            req.setAttribute("weatherInfo", Map.of(
-                    "city", city,
-                    "temperature", main.get("temp"),
-                    "condition", weather.get("description")
-            ));
-        } catch (Exception e) {
-            req.setAttribute("error", "Не удалось получить данные о погоде: " + e.getMessage());
-        }
+            Map<String, Object> responseMap = new HashMap<>();
+            responseMap.put("city", city);
+            responseMap.put("temperature", temperature);
+            responseMap.put("condition", condition);
 
-        req.getRequestDispatcher("profile.jsp").forward(req, resp);
+            resp.setContentType("application/json");
+            resp.getWriter().write(objectMapper.writeValueAsString(responseMap));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("{\"error\":\"Ошибка: " + e.getMessage() + "\"}");
+        }
     }
 }

@@ -25,7 +25,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        System.out.println(username);
+
         if (userService.register(username, password)) {
             Optional<User> registeredUser = userService.findByUsername(username);
             HttpSession session = req.getSession();
