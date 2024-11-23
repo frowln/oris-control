@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a56a22f3-5c50-497b-88ad-145a4d89e0ba" name="Changes" comment="done">
+    <list default="true" id="a56a22f3-5c50-497b-88ad-145a4d89e0ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +66,6 @@
     "Maven.oris-control [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat Server.Tomcat 10.1.31.executor": "Run",
-    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -201,25 +200,11 @@
       <workItem from="1732279224186" duration="143000" />
       <workItem from="1732279370969" duration="622000" />
       <workItem from="1732354505068" duration="607000" />
-      <workItem from="1732361642366" duration="2682000" />
-      <workItem from="1732369180034" duration="148000" />
+      <workItem from="1732361642366" duration="2446000" />
     </task>
-    <task id="LOCAL-00001" summary="done">
-      <option name="closed" value="true" />
-      <created>1732368950206</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1732368950206</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="done" />
-    <option name="LAST_COMMIT_MESSAGE" value="done" />
   </component>
 </project>
